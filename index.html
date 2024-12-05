@@ -10,7 +10,7 @@
       background-color: #f9f9f9;
       color: #333;
       margin: 0;
-      padding: 20px;
+      padding: 0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,23 +20,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 40px;
     }
-    .button {
-      background-color: black;
-      color: white;
-      border: none;
-      font-size: 20px;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .button img {
+      width: 50px;
+      height: 50px;
       cursor: pointer;
-      border-radius: 50%;
-    }
-    .button:active {
-      opacity: 0.8;
     }
     iframe {
       display: none; /* Nasconde il video di default */
@@ -49,18 +38,24 @@
 </head>
 <body>
   <div class="music-widget">
-    <button class="button" id="prev">⏮</button>
-    <button class="button" id="play-pause">▶</button>
-    <button class="button" id="next">⏭</button>
+    <div class="button" id="prev">
+      <img src="https://i.ibb.co/wBfRjYN/b09740b5-0390-4a3b-9272-48f3a364a875.png" alt="Previous">
+    </div>
+    <div class="button" id="play-pause">
+      <img src="https://i.ibb.co/Vvw3mF3/9881a73d-f40d-4ffa-9a2a-c58c093cd1c2.png" alt="Play">
+    </div>
+    <div class="button" id="next">
+      <img src="https://i.ibb.co/Thh3gWS/e35e9d38-5ec9-4967-b7bf-16b081522ddc.png" alt="Next">
+    </div>
   </div>
   <iframe id="youtube-player" allow="autoplay"></iframe>
 
   <script>
     // Playlist di video YouTube
     const playlist = [
-      "https://youtu.be/yajJ_QVIKwU?si=CojzDSpQF3XNsm_p", // Video 1
-      "https://youtu.be/Zhaz_30H_0w?si=26hwya4m3ou6Au_O", // Video 2
-      "https://www.youtube.com/live/DEWzT1geuPU?si=W8TM1peGJuvaLeRT", // Video 3
+      "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video 1
+      "https://www.youtube.com/embed/3JZ_D3ELwOQ", // Video 2
+      "https://www.youtube.com/embed/tgbNymZ7vqY", // Video 3
     ];
     let currentIndex = 0;
     let isPlaying = false;
@@ -76,7 +71,7 @@
       player.src = `${playlist[currentIndex]}?autoplay=1`; // Aggiunge autoplay
       player.style.display = "block"; // Mostra il player
       isPlaying = true;
-      playPauseButton.textContent = "⏸"; // Cambia l'icona in pausa
+      playPauseButton.querySelector("img").src = "https://i.ibb.co/C09TGNH/3ec3e92e-9460-43f1-963c-bbfb8e6a0cc8.png"; // Cambia l'immagine in pausa
     }
 
     // Gestione del play/pausa
@@ -85,7 +80,7 @@
         player.src = ""; // Ferma il video
         player.style.display = "none"; // Nasconde il player
         isPlaying = false;
-        playPauseButton.textContent = "▶"; // Cambia l'icona in play
+        playPauseButton.querySelector("img").src = "https://i.ibb.co/Vvw3mF3/9881a73d-f40d-4ffa-9a2a-c58c093cd1c2.png"; // Cambia l'immagine in play
       } else {
         updatePlayer(); // Riproduce il video corrente
       }
