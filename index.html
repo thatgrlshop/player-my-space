@@ -28,11 +28,10 @@
       cursor: pointer;
     }
     iframe {
-      display: none; /* Nasconde il video di default */
-      width: 100%;
-      height: 300px;
-      margin-top: 20px;
-      border: none;
+      position: absolute;
+      width: 1px; /* Nasconde visivamente l'iframe */
+      height: 1px;
+      left: -9999px; /* Lo sposta fuori dalla vista */
     }
   </style>
 </head>
@@ -53,9 +52,9 @@
   <script>
     // Playlist di video YouTube
     const playlist = [
-      "https://www.youtube.com/embed/dQw4w9WgXcQ", // Video 1
-      "https://www.youtube.com/embed/3JZ_D3ELwOQ", // Video 2
-      "https://www.youtube.com/embed/tgbNymZ7vqY", // Video 3
+      "https://youtu.be/yajJ_QVIKwU?si=CojzDSpQF3XNsm_p", // Video 1
+      "https://youtu.be/Zhaz_30H_0w?si=26hwya4m3ou6Au_O", // Video 2
+      "https://www.youtube.com/live/DEWzT1geuPU?si=W8TM1peGJuvaLeRT", // Video 3
     ];
     let currentIndex = 0;
     let isPlaying = false;
@@ -68,8 +67,7 @@
 
     // Funzione per aggiornare il video corrente
     function updatePlayer() {
-      player.src = `${playlist[currentIndex]}?autoplay=1`; // Aggiunge autoplay
-      player.style.display = "block"; // Mostra il player
+      player.src = `${playlist[currentIndex]}?autoplay=1&controls=0`; // Imposta autoplay e rimuove i controlli visivi
       isPlaying = true;
       playPauseButton.querySelector("img").src = "https://i.ibb.co/C09TGNH/3ec3e92e-9460-43f1-963c-bbfb8e6a0cc8.png"; // Cambia l'immagine in pausa
     }
@@ -78,7 +76,6 @@
     playPauseButton.addEventListener("click", () => {
       if (isPlaying) {
         player.src = ""; // Ferma il video
-        player.style.display = "none"; // Nasconde il player
         isPlaying = false;
         playPauseButton.querySelector("img").src = "https://i.ibb.co/Vvw3mF3/9881a73d-f40d-4ffa-9a2a-c58c093cd1c2.png"; // Cambia l'immagine in play
       } else {
