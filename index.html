@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Music Widget</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .music-widget {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      border-radius: 5px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .button {
+      background-color: #A17E89;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .button:hover {
+      background-color: #8c6375;
+    }
+    .play-button {
+      width: 50px;
+      height: 50px;
+    }
+    iframe {
+      display: none; /* Nasconde il video */
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="music-widget">
+    <button class="button" id="prev">⟵</button>
+    <button class="button play-button" id="play-pause">▶</button>
+    <button class="button" id="next">⟶</button>
+  </div>
+  <iframe id="youtube-player" allow="autoplay"></iframe>
+
+  <script>
+    // Playlist di video YouTube
+    const playlist = [
+      "https://youtu.be/yajJ_QVIKwU?si=CojzDSpQF3XNsm_p", // Video 1
+      "https://youtu.be/Zhaz_30H_0w?si=26hwya4m3ou6Au_O", // Video 2
+      "https://www.youtube.com/live/DEWzT1geuPU?si=W8TM1peGJuvaLeRT", // Video 3
+    ];
+    let currentIndex = 0;
+    let isPlaying = false;
+
+    // Elementi
+    const player = document.getElementById("youtube-player");
+    const playPauseButton = document.getElementById("play-pause");
+    const prevButton = document.getElementById("prev");
+    const nextButton = document.getElementById("next");
+
+    // Funzione per aggiornare il video corrente
+    function updatePlayer() {
+      player.src = `${playlist[currentIndex]}?autoplay=1`; // Aggiunge autoplay
+      player.style.display = "block"; // Mostra il player
+      isPlaying = true;
+      playPauseButton.textContent = "⏸"; // Cambia l'icona in pausa
+    }
+
+    // Gestione del play/pausa
+    playPauseButton.addEventListener("click", () => {
+      if (isPlaying) {
+        player.src = ""; // Ferma il video
+        player.style.display = "none"; // Nasconde il player
+        isPlaying = false;
+        playPauseButton.textContent = "▶"; // Cambia l'icona in play
+      } else {
+        updatePlayer(); // Riproduce il video corrente
+      }
+    });
+
+    // Pulsante "Avanti"
+    nextButton.addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % playlist.length; // Passa al prossimo video
+      updatePlayer();
+    });
+
+    // Pulsante "Indietro"
+    prevButton.addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + playlist.length) % playlist.length; // Torna al video precedente
+      updatePlayer();
+    });
+  </script>
+</body>
+</html>
